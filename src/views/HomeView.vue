@@ -1,10 +1,9 @@
 <script setup>
-// import TheWelcome from '../components/TheWelcome.vue'
+
 import Card from '../components/Card.vue'
-import Weather from '../components/Weather.vue'
 import NoImgNews from '../components/NoImgNews.vue';
 
-const article = {
+const article1 = {
    source: { id: 'wired', name: 'Wired' },
    author: 'Boone Ashworth',
    title: 'OnePlus Pad Android Tablet: Details, Specs, Release Date',
@@ -13,6 +12,7 @@ const article = {
    urlToImage: 'https://media.wired.com/photos/63e69faddcab861f7a47469f/191:100/w_1280,c_limit/OnePlus-Pad-Gear-Roundup-Featured-Gear.jpg',
    publishedAt: '2023-02-14T12:00:00Z'
 }
+
 </script>
 
 <template>
@@ -20,9 +20,8 @@ const article = {
       <div class="container-fluid">
          <!-- Card Example -->
          <div>
-            <Card :source="article.source" :author="article.author" :title="article.title"
-               :description="article.description" :url="article.url" :urlToImage="article.urlToImage"
-               :publishedAt="article.publishedAt" />
+            <!--Modify to pass by article Object to increase readability-->
+            <Card :article="article1" />
          </div>
          <!-- END Card Example -->
 
