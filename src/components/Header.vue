@@ -28,7 +28,7 @@ function handleScroll() {
                     <span class="me-4">Wed, March 4, 2020</span>
                     <span>30°C,London</span>
                 </div>
-
+                <!-- Can you change this into like a Profile button. It will navigate to login page if user not sign in( The redirect will be dome by Jay) -->
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-light text-dark me-2">Login</button>
                     <button type="button" class="btn btn-secondary">Sign-up</button>
