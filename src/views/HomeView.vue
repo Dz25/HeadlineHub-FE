@@ -1,10 +1,9 @@
 <script setup>
-// import TheWelcome from '../components/TheWelcome.vue'
+
 import Card from '../components/Card.vue'
-import Weather from '../components/Weather.vue'
 import NoImgNews from '../components/NoImgNews.vue';
 
-const article = {
+const article1 = {
    source: { id: 'wired', name: 'Wired' },
    author: 'Boone Ashworth',
    title: 'OnePlus Pad Android Tablet: Details, Specs, Release Date',
@@ -13,6 +12,22 @@ const article = {
    urlToImage: 'https://media.wired.com/photos/63e69faddcab861f7a47469f/191:100/w_1280,c_limit/OnePlus-Pad-Gear-Roundup-Featured-Gear.jpg',
    publishedAt: '2023-02-14T12:00:00Z'
 }
+const article2 = {
+
+   source: {
+      id: null,
+      name: "The Daily Caller"
+   },
+   author: "Harold Hutchison",
+   title: "Jim Jordan Spars With Dem Rep Over Censorship Of ‘Lawful Speech’ On Twitter",
+   description: "Republican Rep. Jim Jordan of Ohio and Democratic Rep. Daniel Goldman of New York sparred over allegations surrounding censorship by government agencies.",
+   url: "https://dailycaller.com/2023/03/09/jim-jordan-daniel-goldman-weaponization-censorship/",
+   urlToImage: "https://cdn01.dailycaller.com/wp-content/uploads/2023/03/DCNF-Jordan-Goldman-Twitter-Censorship-Featured.jpg",
+   publishedAt: "2023-03-09T21:00:30Z",
+   content: "Republican Rep. Jim Jordan of Ohio and Democratic Rep. Daniel Goldman of New York sparred Thursday over allegations surrounding censorship by government agencies.\r\n“We’re here talking about Twitter. … [+2598 chars]"
+}
+
+
 </script>
 
 <template>
@@ -20,9 +35,8 @@ const article = {
       <div class="container-fluid">
          <!-- Card Example -->
          <div>
-            <Card :source="article.source" :author="article.author" :title="article.title"
-               :description="article.description" :url="article.url" :urlToImage="article.urlToImage"
-               :publishedAt="article.publishedAt" />
+            <!--Modify to pass by article Object to increase readability-->
+            <Card :article="article1" />
          </div>
          <!-- END Card Example -->
 
@@ -44,7 +58,7 @@ const article = {
             </div>
 
             <div class="col-lg-3">
-               <Card />
+               <Card :article="article2" />
                <NoImgNews />
                <NoImgNews />
             </div>
