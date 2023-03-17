@@ -4,6 +4,7 @@ import Card from '../components/Card.vue'
 import CardHorizontal from '../components/CardHorizontal.vue'
 import CardOverlays from '../components/CardOverlays.vue'
 import CardNoImg from '../components/CardNoImg.vue';
+import AricleBox from '../components/ArticleBox.vue';
 
 const article1 = {
    source: {
@@ -68,6 +69,10 @@ const article4 = {
 <template>
    <main>
    <div class="container-fluid">
+
+      <AricleBox categories="general" />
+
+      
       <!-- Card Example -->
       <div>
          <!--Modify to pass by article Object to increase readability-->
@@ -146,6 +151,8 @@ const article4 = {
                               </div>
                            </div> -->
          <!-- END Local News Section -->
+
+         <AricleBox categories="general" />
 
          <div class="row my-0  d-flex align-items-stretch">
             <!-- General News Topic -->
