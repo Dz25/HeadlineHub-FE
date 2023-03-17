@@ -21,6 +21,7 @@
 
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-right fs-2 mx-3" @click="saveArticle"><i class="bi bi-bookmark"></i></button>
                     <a :href=url class="btn btn-primary">More details</a>
                 </div>
             </div>
@@ -46,5 +47,18 @@ onMounted(() => {
 function _show() {
   thisModalObj.show();
 }
+
+function saveArticle() {
+  const article = {
+    title: title.value,
+    description: description.value,
+    url: url.value,
+    urlToImage: urlToImage.value,
+    publishedAt: publishedAt.value
+  };
+  // emit an event with the article data
+  emit('save-article', article);
+}
+
 defineExpose({ show: _show });
 </script>
