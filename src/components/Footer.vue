@@ -4,7 +4,7 @@
 </script>
 
 <template>
-    <footer class="text-center text-lg-start bg-light text-muted">
+    <footer class="text-center text-lg-start text-white">
     <div class="container-fluid text-center text-md-start mt-3 pt-3">
         <div class="row mt-3 mb-3">
             <!-- Grid column -->
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    <div class="text-center p-3">
         Copyright © 2023 HeadlineHub -  CSIS3275
     </div>
     <!-- Copyright -->
@@ -54,5 +54,7 @@
     
     
 <style>
-
+footer {
+    background-color: #0D19A3;
+}
 </style>
