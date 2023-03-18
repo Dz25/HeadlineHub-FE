@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+<<<<<<< Updated upstream
 import HelloWorld from './components/HelloWorld.vue'
 </script>
 
@@ -9,6 +10,21 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
+=======
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+import GeneralNews from './components/Pages/General.vue'
+</script>
+
+<template>
+  <div class="overflow-hidden">
+      <Header/>
+<!-- <GeneralNews/> -->
+      <div class="container px-4" >
+        
+        <RouterView />
+      </div>
+>>>>>>> Stashed changes
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
