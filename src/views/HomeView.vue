@@ -4,7 +4,7 @@ import Card from '../components/Card.vue'
 import NoImgNews from '../components/NoImgNews.vue';
 
 const article1 = {
-   source: { id: 'wired', name: 'Wired' },
+   source: { id: "wired", name: "Wired" },
    author: 'Boone Ashworth',
    title: 'OnePlus Pad Android Tablet: Details, Specs, Release Date',
    description: 'Plus: Netflix expands its efforts to end password sharing, Apple’s “buy now, pay later” entry creeps closer, and we scrutinize your Bitcoin spending.',
