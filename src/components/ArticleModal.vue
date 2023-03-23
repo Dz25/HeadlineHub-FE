@@ -21,7 +21,11 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-right fs-2 mx-3" @click="saveArticle"><i class="bi bi-bookmark"></i></button>
+                    <button class="btn btn-right fs-2 mx-3" @click="saveArticle" :disabled="isSaved">
+                        <i class="bi bi-bookmark"></i>
+                        <span v-if="isSaved">Saved!</span>
+                        <span v-else>Save</span>
+                    </button>
                     <a :href=url class="btn btn-primary">More details</a>
                 </div>
             </div>
@@ -30,8 +34,8 @@
 </template>
 
 <script setup>
-import { toRefs,ref,onMounted } from 'vue';
-import { Modal } from "bootstrap";  
+import { toRefs, ref, onMounted } from 'vue';
+import { Modal } from "bootstrap";
 
 const props = defineProps({
     data: Object,
@@ -42,22 +46,26 @@ const { source, title, description, url, urlToImage, publishedAt } = toRefs(prop
 let modalEle = ref(null);
 let thisModalObj = null;
 onMounted(() => {
-  thisModalObj = new Modal(modalEle.value);
+    thisModalObj = new Modal(modalEle.value);
 });
+
+let isSaved = ref(false);
+
 function _show() {
-  thisModalObj.show();
+    thisModalObj.show();
 }
 
 function saveArticle() {
-  const article = {
-    title: title.value,
-    description: description.value,
-    url: url.value,
-    urlToImage: urlToImage.value,
-    publishedAt: publishedAt.value
-  };
-  // emit an event with the article data
-  emit('save-article', article);
+    const article = {
+        title: title.value,
+        description: description.value,
+        url: url.value,
+        urlToImage: urlToImage.value,
+        publishedAt: publishedAt.value
+    };
+    // emit an event with the article data
+    emit('save-article', article);
+    isSaved.value = true;
 }
 
 defineExpose({ show: _show });

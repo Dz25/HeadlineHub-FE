@@ -1,10 +1,11 @@
 <script setup>
 
 import Card from '../components/Card.vue'
-import CardHorizontal from '../components/CardHorizontal.vue'
 import CardOverlays from '../components/CardOverlays.vue'
 import CardNoImg from '../components/CardNoImg.vue';
 import AricleBox from '../components/ArticleBox.vue';
+import ArticleBox_4Cards from '../components/ArticleBox_4Cards.vue';
+import ArticleBox_3Cards from '../components/ArticleBox_3cards.vue';
 
 const article1 = {
    source: {
@@ -68,21 +69,18 @@ const article4 = {
 
 <template>
    <main>
-   <div class="container-fluid">
+      <div class="container-fluid">
 
-      <AricleBox categories="general" />
+         <!-- Card Example -->
+         <!-- <div> -->
+            <!--Modify to pass by article Object to increase readability-->
+            <!-- <Card :article="article1" /> -->
+         <!-- </div> -->
+         <!-- END Card Example -->
 
-      
-      <!-- Card Example -->
-      <div>
-         <!--Modify to pass by article Object to increase readability-->
-         <!-- <Card :article="article1" /> -->
-      </div>
-      <!-- END Card Example -->
-
-      <!-- Latest News -->
-      <div class="row px-4 pt-4 pb-5" style="background-color: #F4E4C1;">
-         <h2 class="mx-3" style="color:#05668D; font-weight: bold;">Latest news</h2>
+         <!-- Latest News -->
+         <div class="row px-4 pt-4 pb-5" style="background-color: #F4E4C1;">
+            <h2 class="mx-3" style="color:#05668D; font-weight: bold;">Latest news</h2>
 
             <div class="container">
                <div class="row">
@@ -114,45 +112,7 @@ const article4 = {
 
          </div>
          <!-- END Latest News -->
-
-         <!-- Local News Section Section -->
-         <!-- <div class="col-lg-4 stretch-card grid-margin">
-                              <h3>Local news</h3>
-
-                              <div class="card my-3">
-                                 <div class="card-body">
-                                    <div class="list-group card-scrollable">
-                                       <div
-                                          class="list-group-item list-group-item-action border-0 d-flex pt-3 pb-4 align-items-center justify-content-between">
-                                          <div class="pr-3">
-                                             <h6>Virus Kills Member Of Advising Iran’s Supreme</h6>
-                                             <div class="fs-10">10 Minutes ago</div>
-                                          </div>
-                                          <div class="rotate-img">
-                                          </div>
-                                       </div>
-
-                                       <div
-                                          class="list-group-item list-group-item-action border-0 d-flex pt-3 pb-4 align-items-center justify-content-between">
-                                          <div class="pr-3">
-                                             <h6>Virus Kills Member Of Advising Iran’s Supreme</h6>
-                                             <div class="fs-10">10 Minutes ago</div>
-                                          </div>
-                                          <div class="rotate-img">
-                                          </div>
-                                       </div>
-
-                                       <a href="#!" class="list-group-item list-group-item-action border-0">A third link item</a>
-                                       <a href="#!" class="list-group-item list-group-item-action border-0">A fourth link item</a>
-                                       <a href="#!" class="list-group-item list-group-item-action border-0">A fifth link item</a>
-
-                                    </div>
-                                 </div>
-                              </div>
-                           </div> -->
-         <!-- END Local News Section -->
-
-         <AricleBox categories="general" />
+         
 
          <div class="row my-0  d-flex align-items-stretch">
             <!-- General News Topic -->
@@ -160,26 +120,8 @@ const article4 = {
                <a href="#!" class="text-decoration-none text-reset">
                   <h3 class="pt-2 pb-3" style="color: #05668D;">General</h3>
                </a>
-
-               <div class="row row-cols-1 row-cols-md-3 g-4">
-                  <div class="col">
-                     <Card :article="article3" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article4" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article1" class="h-100" />
-                  </div>
-               </div>
-               <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
-                  <div class="col-lg-6">
-                     <Card :article="article2" class="h-100" />
-                  </div>
-                  <div class="col-lg-6">
-                     <Card :article="article3" class="h-100" />
-                  </div>
-               </div>
+               
+               <AricleBox categories="general" />
 
             </div>
             <!-- END General News Topic -->
@@ -192,20 +134,7 @@ const article4 = {
                   <h3 class="pt-2 pb-3" style="color:#E4C580; font-weight: bold;">Business</h3>
                </a>
 
-               <div class="row row-cols-1 row-cols-md-2 g-4">
-                  <div class="col">
-                     <Card :article="article1" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article2" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article3" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article4" class="h-100" />
-                  </div>
-               </div>
+               <ArticleBox_4Cards categories="business" />
 
             </div>
             <!-- Business News Topic -->
@@ -215,19 +144,7 @@ const article4 = {
                   <h3 class="pt-2 pb-3" style="color:#F4E4C1">Entertainment</h3>
                </a>
 
-               <div class="row">
-                  <div class="col">
-                     <Card :article="article4" />
-                  </div>
-               </div>
-               <div class="row pt-4 row-cols-1 row-cols-md-2 g-4">
-                  <div class="col">
-                     <Card :article="article1" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article4" class="h-100" />
-                  </div>
-               </div>
+               <ArticleBox_3Cards categories="entertainment" />
 
             </div>
             <!-- END Entertainment News Topic -->
@@ -240,19 +157,7 @@ const article4 = {
                   <h3 class="pt-2 pb-3" style="color:#05668D;">Health</h3>
                </a>
 
-               <div class="row">
-                  <div class="col">
-                     <Card :article="article2" />
-                  </div>
-               </div>
-               <div class="row pt-4 row-cols-1 row-cols-md-2 g-4">
-                  <div class="col">
-                     <Card :article="article3" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article4" class="h-100" />
-                  </div>
-               </div>
+               <ArticleBox_3Cards categories="health" />
 
             </div>
             <!-- END Health News Topic -->
@@ -262,20 +167,7 @@ const article4 = {
                   <h3 class="pt-2 pb-3" style="color:#028090">Science</h3>
                </a>
 
-               <div class="row row-cols-1 row-cols-md-2 g-4">
-                  <div class="col">
-                     <Card :article="article1" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article2" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article3" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article4" class="h-100" />
-                  </div>
-               </div>
+               <ArticleBox_4Cards categories="science" />
 
             </div>
             <!-- END Science News Topic -->
@@ -288,20 +180,7 @@ const article4 = {
                   <h3 class="pt-2 pb-3" style="color:#F4E4C1">Sports</h3>
                </a>
 
-               <div class="row row-cols-1 row-cols-md-2 g-4">
-                  <div class="col">
-                     <Card :article="article1" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article2" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article3" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article4" class="h-100" />
-                  </div>
-               </div>
+               <ArticleBox_4Cards categories="sports" />
 
             </div>
             <!-- END Sports News Topic -->
@@ -310,20 +189,7 @@ const article4 = {
                <a href="#!" class="text-decoration-none text-reset">
                   <h3 class="pt-2 pb-3" style="color:#E4C580">Technology</h3>
                </a>
-
-               <div class="row">
-                  <div class="col">
-                     <Card :article="article4" />
-                  </div>
-               </div>
-               <div class="row pt-4 row-cols-1 row-cols-md-2 g-4">
-                  <div class="col">
-                     <Card :article="article1" class="h-100" />
-                  </div>
-                  <div class="col">
-                     <Card :article="article4" class="h-100" />
-                  </div>
-               </div>
+               <ArticleBox_3Cards categories="technology" />
 
             </div>
             <!-- END Tech News Topic -->
