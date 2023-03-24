@@ -20,14 +20,14 @@
                     </figure>
                     <div class="py-3">
                         <h3>Comments</h3>
-                        <form class="py-3" style="background-color: #f8f9fa;">
+                        <form class="py-3" style="background-color: #f8f9fa;" @submit.prevent="handleSubmit">
                             <div class="d-flex flex-start w-100 px-3">
                                 <img class="rounded-circle shadow-1-strong me-3"
                                     src="https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg" alt="avatar" width="50"
                                     height="50" />
                                 <div class="form-outline w-100">
                                     <textarea class="form-control" id="textAreaExample" rows="4"
-                                        style="background: #fff;" placeholder="Comment"></textarea>
+                                        style="background: #fff;" placeholder="Comment" v-model="comment"></textarea>
                                 </div>
                             </div>
                             <div class="mt-2 pt-1 d-flex justify-content-end me-3">
@@ -49,6 +49,7 @@
 
 <script setup>
 import { toRefs, ref, onMounted } from 'vue';
+import axios from 'axios';
 import { Modal } from "bootstrap";
 import Comment from './Comment.vue';
 
@@ -57,7 +58,9 @@ const props = defineProps({
     id: String,
     summary: String
 })
+
 const { source, title, url, urlToImage } = toRefs(props.data)
+const comment = ref("")
 const modalEle = ref(null);
 let thisModalObj = null;
 const comments = ref([
@@ -79,6 +82,37 @@ const comments = ref([
 onMounted(() => {
     thisModalObj = new Modal(modalEle.value);
 });
+    
+//handle submit comment
+const handleSubmit = async ()=>{
+    const userId = localStorage.getItem('userId')
+    const article = {
+        title: title.value,
+        urlToImage: urlToImage.value,
+        url: url.value,
+        summary: props.summary
+    }
+    //Check if article already exists in the database and get the id
+    const res = await axios.post(`http://localhost/api/articles`,article,{headers:{"Content-Type":"application/json"}})
+    const articleId = await res.data.id
+
+    const data = {
+        userId: userId,
+        comment: comment.value.length > 0 ? comment.value : "Empty comment"
+    }
+    const respone = await axios.post(`http://localhost:8080/api/articles/${articleId}/comments`,data,{headers:{"Content-Type":"application/users"}})
+    const status  = await respone.status
+    comment.value = ""
+    if(status == 201){
+        //change bookmark icon
+    }else{
+        alert("Can't post comment! Please try again")
+    }
+
+}
+
+
+
 function _show() {
     thisModalObj.show();
 }
