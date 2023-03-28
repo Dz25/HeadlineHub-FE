@@ -18,8 +18,8 @@ import axios from 'axios';
                     <p class="card-text">Description: {{ description }}</p>
                 </div>
             </div>
-            <span><button class="btn btn-outline-success float-right" @click="showModal">Read More</button>
-            </span>
+            <span><button class="btn btn-outline-success float-right m-3" @click="showModal">Read More</button></span>
+            <span><button class="btn btn-outline-warning float-right m-3 mt-0">Delete</button></span>
             <ArticleModal ref="contentModal" :data=article :id=id :summary=summary />
             <LoadingModal ref="loadingModal" />
         </div>

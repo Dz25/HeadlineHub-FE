@@ -12,9 +12,9 @@ const props = defineProps({
 onMounted(async () => {
 
     let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ca&category=${props.categories}&apiKey=bf5522d648c8464a91ab8cd337f590a8`)
-    console.log(res.data)
+    // console.log(res.data)
     // article.value = res.data.articles
-    console.log(article.value)
+    // console.log(article.value)
     await nextTick(() => {
         article.value = res.data.articles
     })

@@ -14,6 +14,15 @@ const formattedSavedArticles = computed(() => {
     return savedArticles.value;
 });
 
+onMounted(async () => {
+    let res = await axios.get(`http://localhost:8081/api/users/{id}/articles`)
+    console.log(res.data)
+    console.log(article.value)
+    await nextTick(() => {
+        article.value = res.data.articles
+    })
+})
+
 </script>
 
 
@@ -30,7 +39,7 @@ const formattedSavedArticles = computed(() => {
 
             <div v-if="savedArticles.length > 0">
                 <div v-for="(article, index) in savedArticles" :key="index">
-                    <NewsCard :data="article" :id="index" :summary="article.description" />
+                    <SavedArticleCard :data="article" :id="index" :summary="article.description" />
                 </div>
             </div>
             <div v-else>
