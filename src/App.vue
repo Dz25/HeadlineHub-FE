@@ -8,8 +8,7 @@ import Footer from './components/Footer.vue'
   <div class="overflow-hidden">
       <Header/>
 
-      <div class="container px-4">
-        
+      <div class="container-fluid px-0">
         <RouterView />
       </div>
 

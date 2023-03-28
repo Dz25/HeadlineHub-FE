@@ -4,9 +4,9 @@
 </script>
 
 <template>
-    <footer class="text-center text-lg-start bg-light text-muted">
-    <div class="container-fluid text-center text-md-start mt-3 pt-3">
-        <div class="row mt-3 mb-3">
+    <footer class="text-center text-lg-start text-white">
+    <div class="container-fluid text-center text-md-start pt-3">
+        <div class="row pt-3 mb-3">
             <!-- Grid column -->
             <div class="col-md-5 mx-auto mb-3">
                 <h5 class="fw-bold mb-3">HeadlineHub</h5>
@@ -21,19 +21,19 @@
             <div class="col-md-2 mx-auto mb-3">
                 <h6 class="text-uppercase fw-bold mb-3">Categories</h6>
                 <ul class="list-unstyled mb-0">
-                    <li><a href="#" class="text-decoration-none text-muted">General</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Business</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Entertainment</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Health</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Science</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Sports</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">Technology</a></li>
+                    <li><a href="#" class="text-decoration-none text-white">General</a></li>
+                    <li><a href="#" class="text-decoration-none text-white">Business</a></li>
+                    <li><a href="#" class="text-decoration-none text-white">Entertainment</a></li>
+                    <li><a href="#" class="text-decoration-none text-white">Health</a></li>
+                    <li><a href="#" class="text-decoration-none text-white">Science</a></li>
+                    <li><a href="#" class="text-decoration-none text-white">Sports</a></li>
+                    <li><a href="#" class="text-decoration-none text-white">Technology</a></li>
                 </ul>
             </div>
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-md-3 mx-auto  mb-3">
+            <div class="col-md-3 mx-auto mb-3">
                 <h6 class="text-uppercase fw-bold mb-3">Contact</h6>
                 <p>Vancouver, BC Canada</p>
                 <p>info@example.com</p>
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    <div class="text-center p-3">
         Copyright © 2023 HeadlineHub -  CSIS3275
     </div>
     <!-- Copyright -->
@@ -54,5 +54,7 @@
     
     
 <style>
-
+footer {
+    background-color: #05668D;
+}
 </style>

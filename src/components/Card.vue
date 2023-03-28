@@ -5,8 +5,10 @@
       <h5 class="card-title">{{ title }}</h5>
       <p class="card-text">{{ description }}</p>
       <p class="card-text"><small class="text-muted">{{ new Date(Date.parse(publishedAt)) }}</small></p>
-      <p class="card-text"><small class="text-muted">By {{ author }}</small></p>
-      <button class="btn btn-primary" @click="showModal">Read More</button>
+      <p class="card-text"><small class="text-muted">By {{ author }}</small>
+      <span><button class="btn btn-outline-success float-right" @click="showModal">Read More</button>
+</span>
+      </p>
       <ArticleModal ref="contentModal" :data=article :id=id :summary=summary />
       <LoadingModal ref="loadingModal"/>
     </div>
@@ -47,3 +49,18 @@ const showModal = async () => {
 }
 
 </script>
+
+<style>
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+p {
+  margin: 0.5%;
+}
+.float-right {
+    float: right;
+  }
+</style>
