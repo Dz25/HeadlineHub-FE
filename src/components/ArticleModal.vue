@@ -23,16 +23,16 @@
                         <form class="py-3" style="background-color: #f8f9fa;" @submit.prevent="handleSubmit">
                             <div class="d-flex flex-start w-100 px-3">
                                 <img class="rounded-circle shadow-1-strong me-3"
-                                    src="https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg" alt="avatar" width="50"
-                                    height="50" />
+                                    src="https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg"
+                                    alt="avatar" width="50" height="50" />
                                 <div class="form-outline w-100">
-                                    <textarea class="form-control" id="textAreaExample" rows="4"
-                                        style="background: #fff;" placeholder="Comment" v-model="comment"></textarea>
+                                    <textarea class="form-control" id="textAreaExample" rows="4" style="background: #fff;"
+                                        placeholder="Comment" v-model="comment"></textarea>
                                 </div>
                             </div>
                             <div class="mt-2 pt-1 d-flex justify-content-end me-3">
-                                <button type="button" class="btn btn-primary btn-sm">Post comment</button>
-                            </div>  
+                                <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+                            </div>
                         </form>
                         <div v-for="comment in comments" class="container justify-content-center">
                             <Comment :comment="comment" />
@@ -63,55 +63,58 @@ const { source, title, url, urlToImage } = toRefs(props.data)
 const comment = ref("")
 const modalEle = ref(null);
 let thisModalObj = null;
-const comments = ref([
-    {
-        comment: "asd",
-        userId: 2,
-        postedTime: "22"
-    }, {
-        comment: "asd",
-        userId: 2,
-        postedTime: "22"
-    }, {
-        comment: "asd",
-        userId: 2,
-        postedTime: "22"
-    }
-]);
+const comments = ref([]);
+let userId
 
+//use watch instead
 onMounted(() => {
     thisModalObj = new Modal(modalEle.value);
+    //waiting for login page implementation, this is for a mock 
+    localStorage.setItem("userId", 1)
+    userId = localStorage.getItem('userId')
+
+    //
+    // const article = {
+    //     title: title.value,
+    //     urlToImage: props.data.urlToImage,
+    //     url: props.data.url,
+    //     summary: props?.summary
+    // }
+    // //Check if article already exists in the database and get the id
+    // axios.post(`http://localhost:8080/api/articles`, article, { headers: { "Content-Type": "application/json" } }).then((res)=>articleId.value = res.data.id).then(axios.get(`http://localhost:8080/api/articles/${articleId.value}/comments`).then((res) => comments.value = res.data))
 });
-    
+
 //handle submit comment
-const handleSubmit = async ()=>{
-    const userId = localStorage.getItem('userId')
+//waiting for the the design
+const handleSubmit = async () => {
+    const data = {
+        userId: userId,
+        comment: comment.value
+    }
+    
     const article = {
         title: title.value,
-        urlToImage: urlToImage.value,
-        url: url.value,
+        urlToImage: props.data.urlToImage,
+        url: props.data.url,
         summary: props.summary
     }
     //Check if article already exists in the database and get the id
-    const res = await axios.post(`http://localhost/api/articles`,article,{headers:{"Content-Type":"application/json"}})
+    const res = await axios.post(`http://localhost:8080/api/articles`, article, { headers: { "Content-Type": "application/json" } })
     const articleId = await res.data.id
-
-    const data = {
-        userId: userId,
-        comment: comment.value.length > 0 ? comment.value : "Empty comment"
-    }
-    const respone = await axios.post(`http://localhost:8080/api/articles/${articleId}/comments`,data,{headers:{"Content-Type":"application/users"}})
+    
+    //POST the comment to the database
+    const respone = await axios.post(`http://localhost:8080/api/articles/${articleId}/comments`,data,{headers:{"Content-Type":"application/json"}})
     const status  = await respone.status
-    comment.value = ""
-    if(status == 201){
+
+    if (status == 201) {
         //change bookmark icon
-    }else{
+        //reload page   
+        comment.value = ""
+    } else {
         alert("Can't post comment! Please try again")
     }
 
 }
-
-
 
 function _show() {
     thisModalObj.show();

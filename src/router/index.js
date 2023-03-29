@@ -17,7 +17,9 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
-    }, { path: '/pages/business', component: GeneralPagecard },
+    },
+    //pass in props as categories name, change the GeneralPageCard name to something generic
+    { path: '/pages/business', component: GeneralPagecard },
     { path: '/pages/entertainment', component: GeneralPagecard },
     { path: '/pages/general', component: GeneralPagecard },
     { path: '/pages/health', component: GeneralPagecard },

@@ -22,7 +22,7 @@
             url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apiKey}&units=metric`;
             this.fetchWeatherData(url);
           }, (error) => {
-            console.error(error);
+            console.log(error);
           });
         }
         this.fetchWeatherData(url);
