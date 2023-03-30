@@ -1,33 +1,34 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import GeneralPagecard from '../components/GeneralPageCard.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import GeneralPagecard from "../views/GeneralPageCard.vue";
+import signin from "../components/Signin.vue";
+import signup from "../components/SignUp.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }, { path: '/pages/business', component: GeneralPagecard },
-    { path: '/pages/entertainment', component: GeneralPagecard },
-    { path: '/pages/general', component: GeneralPagecard },
-    { path: '/pages/health', component: GeneralPagecard },
-    { path: '/pages/science', component: GeneralPagecard },
-    { path: '/pages/sports', component: GeneralPagecard },
-    { path: '/pages/technology', component: GeneralPagecard },
-    { path: '/pages/signin', component: () => import('../components/Signin.vue') },
-    { path: '/pages/signup', component: () => import('../components/Signup.vue') },
-    // { path: '/weather', component: () => import('../components/WeatherApi.vue') }
-  ]
-})
+    { path: "/", name: "home", component: HomeView, meta: { requiresAuth: true } },
+    { path: "/pages/business", component: GeneralPagecard, props: { catagory: "business" }, meta: { requiresAuth: true } },
+    { path: "/pages/entertainment", component: GeneralPagecard, props: { catagory: "entertainment" }, meta: { requiresAuth: true } },
+    { path: "/pages/general", component: GeneralPagecard, props: { catagory: "general" }, meta: { requiresAuth: true } },
+    { path: "/pages/health", component: GeneralPagecard, props: { catagory: "health" }, meta: { requiresAuth: true } },
+    { path: '/pages/science', component: GeneralPagecard, props: { catagory: "science" }, meta: { requiresAuth: true } },
+    { path: "/pages/sports", component: GeneralPagecard, props: { catagory: "sports" }, meta: { requiresAuth: true } },
+    { path: "/pages/technology", component: GeneralPagecard, props: { catagory: "technology" }, meta: { requiresAuth: true } },
+    { path: "/pages/signin", name: "signin", component: signin, },
+    { path: "/pages/signup", name: "signup", component: signup, },
+  ],
 
-export default router
+});
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('user-info');
+
+  // If the route requires authentication and the user is not authenticated, redirect to the login page
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    next({ name: 'signin' });
+  } else {
+    next();
+  }
+});
+
+export default router;

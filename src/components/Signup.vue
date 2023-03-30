@@ -1,135 +1,154 @@
 <template>
-    <article>
-      <div class="container" :class="{ 'sign-up-active': signUp }">
+  <div class="vue-tempalte">
+    <div class="tempwidth">
+      
+      <div class="ermsg" v-if="errorMessage">{{ errorMessage }}</div>
+      <div  class="sussmsg" v-if="successMessage">{{ successMessage }}</div>
+      <h3>Sign In</h3>
+      
+      <form @submit.prevent="submitForm" class="">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            v-model="name"
+            type="text"
+            name="name"
+            id="name"
+            class="form-control form-control-lg"
+            :class="{ 'is-invalid': formErrors.name }"
+            required
+            autofocus
+          />
+          <div class="invalid-feedback" v-if="formErrors.name">
+            {{ formErrors.name[0] }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            v-model="email"
+            type="email"
+            name="email"
+            id="email"
+            class="form-control form-control-lg"
+            :class="{ 'is-invalid': formErrors.email }"
+            required
+          />
+          <div class="invalid-feedback" v-if="formErrors.email">
+            {{ formErrors.email[0] }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            v-model="password"
+            type="password"
+            name="password"
+            id="password"
+            class="form-control form-control-lg"
+            :class="{ 'is-invalid': formErrors.password }"
+            required
+          />
+          <div class="invalid-feedback" v-if="formErrors.password">
+            {{ formErrors.password[0] }}
+          </div>
+        </div>
+        <div class="btclass">
+          <router-link to="/pages/signin" custom v-slot="{ navigate }">
+            <button
+              @click="navigate"
+              type="button"
+              class="btn btn-light text-dark me-2"
+              role="link"
+            >
+              already have an account?Sign in 
+            </button></router-link>
+            <button type="submit" class="btn btn-dark btn-lg btn-block">
+          {{ submitButtonText }}
+        </button>
+            
+            </div>
+        
+      </form>
+      
   
-        <form class="sign-up" action="#">
-          <h2>HeadLineHub </h2>
-          <h2>Sign-Up </h2>
-          <input type="name" placeholder="full name " />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Sign Up</button>
-        </form>
-      </div>
-    </article>
-  </template>
-  
-  <script>
-  export default {
-    data: () => {
-      return {
-        signUp: true
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      submitButtonText: "Register",
+      formErrors: {},
+      errorMessage:"",
+      successMessage:""
+    };
+  },
+
+  methods: {
+    submitForm(e) {
+      e.preventDefault();
+
+      axios
+        .post("http://localhost:8080/api/users/signup", {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        }, {
+			headers: {
+				"Content-Type":"application/json"
       }
-    }
-  }
-  </script>
+			})
+        .then((response) => {
+          
+              // User was successfully registered
+          this.errorMessage = '';
+          this.successMessage = 'User was successfully registered.';
+          this.user.email = '';
+          this.user.password = '';
+          this.user.name = '';
+           // Redirect to login page after 3 seconds
+           setTimeout(() => {
+            this.$router.push({name:'signup'})
+          }, 3000);
+          
+        })
+        .catch((error) => {
+          if (error.response.status === 409) {
+            // User already exists
+            this.errorMessage = 'User with this email already exists.';
+          } else {
+            // Some other error occurred
+            this.errorMessage = 'Error occurred while registering user.';
+          }
+        });
+    },
+  },
+};
+</script>
+
+<style>
+.tempwidth{
+width: 400px;
+margin-left: 33%;
+}
+.btclass{
+  margin-top: 10px;
   
-  <style lang="scss" scoped>
-  .container {
-    position: relative;
-    width: 500px;
-    height: 480px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
-      0 10px 10px rgba(0, 0, 0, .2);
-    background: linear-gradient(to bottom, #efefef, #ccc);
-    .overlay-container {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 50%;
-      height: 100%;
-      overflow: hidden;
-      transition: transform .5s ease-in-out;
-      z-index: 100;
-    }
-    @mixin overlays($property) {
-      position: absolute;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      flex-direction: column;
-      padding: 70px 40px;
-      width: calc(50% - 80px);
-      height: calc(100% - 140px);
-      text-align: center;
-      transform: translateX($property);
-      transition: transform .5s ease-in-out;
-    }
-  }
-  h2 {
-    margin: 0;
-  }
-  p {
-    margin: 20px 0 30px;
-  }
-  a {
-    color: #222;
-    text-decoration: none;
-    margin: 15px 0;
-    font-size: 1rem;
-  }
-  button {
-    border-radius: 20px;
-    border: 1px solid #009345;
-    background-color: #009345;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px 40px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: transform .1s ease-in;
-    &:active {
-      transform: scale(.9);
-    }
-    &:focus {
-      outline: none;
-    }
-  }
-  form {
-    position: absolute;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
-    padding: 100px 1px;
-    width: calc(33%);
-    height: calc(100%);
-    text-align: center;
-    background: linear-gradient(to bottom, #efefef, #ccc);
-    transition: all .5s ease-in-out;
-    div {
-      font-size: 1rem;
-    }
-    input {
-      background-color: #eee;
-      border: none;
-      padding: 5px 15px;
-      margin: 1px 0;
-      width: calc(100%);
-      border-radius: 15px;
-      border-bottom: 1px solid #ddd;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .4),
-        0 -1px 1px #fff,
-        0 1px 0 #fff;
-      overflow: hidden;
-      &:focus {
-        outline: none;
-        background-color: #fff;
-      }
-    }
-  }
-  .sign-up-active {
-    .sign-up {
-      transform: translateX(100%);
-      opacity: 1;
-      z-index: 5;
-      animation: show .5s;
-    }
-  }
-  </style>
+}
+.ermsg{
+color: red;
+}
+.sussmsg{
+  color: green;
+}
+</style>
