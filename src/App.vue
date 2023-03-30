@@ -6,11 +6,11 @@ import Footer from "./components/Footer.vue";
 
 <template>
   <div class="overflow-hidden">
-    <Header />
+      <Header/>
 
-    <div class="container px-4">
-      <RouterView />
-    </div>
+      <div class="container-fluid px-0">
+        <RouterView />
+      </div>
 
     <Footer />
   </div>
