@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import GeneralPagecard from '../components/GeneralPageCard.vue'
+import ProfileView from '../views/ProfileView.vue'
+import GeneralPagecard from '../views/GeneralPageCard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/about',
@@ -29,6 +29,15 @@ const router = createRouter({
     { path: '/pages/signin', component: () => import('../components/Signin.vue') },
     { path: '/pages/signup', component: () => import('../components/Signup.vue') },
     // { path: '/weather', component: () => import('../components/WeatherApi.vue') }
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: ProfileView
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('../views/NotFoundView.vue')
+    }
   ]
 })
 

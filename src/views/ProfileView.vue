@@ -1,0 +1,52 @@
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import SavedArticleCard from '../components/SavedArticleCard.vue'
+import axios from 'axios';
+
+const savedArticles = ref([]);
+const saveArticle = (article) => {
+    savedArticles.value.push(article);
+};
+const formattedSavedArticles = computed(() => {
+    // format the saved articles here if necessary
+    return savedArticles.value;
+});
+
+onMounted(async () => {
+    let id = localStorage.getItem('userId')
+    let res = await axios.get(`http://localhost:8081/api/users/${id}/articles`)
+    console.log(res.data)
+    console.log(article.value)
+    await nextTick(() => {
+        article.value = res.data.articles
+    })
+})
+
+</script>
+
+
+<template>
+    <div class="container-fluid">
+        <div class="row px-4 py-4" style="background-color: #F4E4C1;">
+            <h1 class="mx-3" style="color:#05668D; font-weight: bold;">Saved Articles</h1>
+
+            <SavedArticleCard />
+
+            <!-- use the savedArticles, saveArticle, and formattedSavedArticles variables here -->
+            <!-- <ArticleModal @save="saveArticle" /> -->
+
+
+            <div v-if="savedArticles.length > 0">
+                <div v-for="(article, index) in savedArticles" :key="index">
+                    <SavedArticleCard :data="article" :id="index" :summary="article.description" />
+                </div>
+            </div>
+            <div v-else>
+                <p>No saved articles yet.</p>
+            </div>
+
+        </div>
+    </div>
+</template>
+
+<style></style>

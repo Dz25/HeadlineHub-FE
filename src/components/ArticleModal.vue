@@ -20,7 +20,7 @@
                     </figure>
                     <div class="py-3">
                         <h3>Comments</h3>
-                        <form class="py-3" style="background-color: #f8f9fa;" @submit.prevent="handleSubmit">
+                        <form class="py-3" style="background-color: #f8f9fa;" @submit.prevent="handleSubmitComment">
                             <div class="d-flex flex-start w-100 px-3">
                                 <img class="rounded-circle shadow-1-strong me-3"
                                     src="https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg"
@@ -35,22 +35,33 @@
                             </div>
                         </form>
                         <div v-for="comment in comments" class="container justify-content-center">
-                            <Comment :comment="comment" />
+                            <Comment :key="comment.id" :comment="comment" />
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-right mx-3" @click="saveArticle" :disabled="isSaved">
+                        <span v-if="isSaved"><i class="bi bi-bookmark-check"></i> Saved!</span>
+                        <span v-else><i class="bi bi-bookmark"></i> Save</span>
+                    </button>
+
                     <a :href=url class="btn btn-primary">More details</a>
                 </div>
+            </div>
+        </div>
+        <div id="saved-toast" class="toast align-items-center text-white bg-success" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="toast-body">
+                Article has been saved!
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { toRefs, ref, onMounted } from 'vue';
+import { toRefs, ref, onMounted, watch } from 'vue';
 import axios from 'axios';
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
 import Comment from './Comment.vue';
 
 const props = defineProps({
@@ -64,51 +75,52 @@ const comment = ref("")
 const modalEle = ref(null);
 let thisModalObj = null;
 const comments = ref([]);
-let userId
+const userId = ref("")
+const articleId = ref("")
 
 //use watch instead
-onMounted(() => {
-    thisModalObj = new Modal(modalEle.value);
-    //waiting for login page implementation, this is for a mock 
-    localStorage.setItem("userId", 1)
-    userId = localStorage.getItem('userId')
+let isSaved = ref(false);
+let savedToast = ref(null);
 
-    //
-    // const article = {
-    //     title: title.value,
-    //     urlToImage: props.data.urlToImage,
-    //     url: props.data.url,
-    //     summary: props?.summary
-    // }
-    // //Check if article already exists in the database and get the id
-    // axios.post(`http://localhost:8080/api/articles`, article, { headers: { "Content-Type": "application/json" } }).then((res)=>articleId.value = res.data.id).then(axios.get(`http://localhost:8080/api/articles/${articleId.value}/comments`).then((res) => comments.value = res.data))
+onMounted(async () => {
+    thisModalObj = new Modal(modalEle.value);
+    //waiting for login page implementation, this is for a mock userId
+    localStorage.setItem("userId", 1)
+    userId.value = localStorage.getItem('userId')
+    savedToast.value = new Toast(document.getElementById('saved-toast'));
 });
 
-//handle submit comment
-//waiting for the the design
-const handleSubmit = async () => {
-    const data = {
-        userId: userId,
-        comment: comment.value
-    }
-    
+watch(props, (cur, prev) => {
     const article = {
         title: title.value,
-        urlToImage: props.data.urlToImage,
+        urlToImage: props.data.urlToImage,  
         url: props.data.url,
-        summary: props.summary
+        summary: props?.summary
     }
     //Check if article already exists in the database and get the id
-    const res = await axios.post(`http://localhost:8080/api/articles`, article, { headers: { "Content-Type": "application/json" } })
-    const articleId = await res.data.id
     
+    axios.post(`http://localhost:8080/api/articles`, article, { headers: { "Content-Type": "application/json" } }).then((res) => {
+        articleId.value = res.data.id
+        return axios.get(`http://localhost:8080/api/articles/${res.data.id}/comments`)
+    }).then(res => comments.value = res.data)
+})
+//handle submit comment
+//waiting for the the design
+const handleSubmitComment = async () => {
+    const data = {
+        userId: userId.value,
+        comment: comment.value
+    }
+
     //POST the comment to the database
-    const respone = await axios.post(`http://localhost:8080/api/articles/${articleId}/comments`,data,{headers:{"Content-Type":"application/json"}})
-    const status  = await respone.status
+    const respone = await axios.post(`http://localhost:8080/api/articles/${articleId.value}/comments`, data, { headers: { "Content-Type": "application/json" } })
+    const status = await respone.status
 
     if (status == 201) {
-        //change bookmark icon
-        //reload page   
+        //reload page
+        
+        const res = await axios.get(`http://localhost:8080/api/articles/${articleId.value}/comments`)
+        comments.value = await res.data
         comment.value = ""
     } else {
         alert("Can't post comment! Please try again")
@@ -116,8 +128,43 @@ const handleSubmit = async () => {
 
 }
 
+
+const saveArticle = () => {
+    axios.post(`http://localhost:8080/api/users/${userId.value}/articles`, {
+        title: title.value,
+        summary: props.summary,
+        url: url.value,
+        urlToImage: urlToImage.value
+    }, { headers: { "Content-Type": "application/json" } })
+        .then(response => {
+
+            isSaved.value = true;
+            savedToast.value.show();
+
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+
+
 function _show() {
     thisModalObj.show();
 }
+
+// function saveArticle() {
+//     const article = {
+//         title: title.value,
+//         description: description.value,
+//         url: url.value,
+//         urlToImage: urlToImage.value,
+//         publishedAt: publishedAt.value
+//     };
+//     // emit an event with the article data
+//     emit('save-article', article);
+//     isSaved.value = true;
+// }
+
 defineExpose({ show: _show });
 </script>
