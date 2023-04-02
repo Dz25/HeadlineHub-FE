@@ -1,8 +1,9 @@
 <template>
   <div class="card">
-    <img :src=urlToImage class="card-img-top" :alt=title />
+    <img v-if="urlToImage" :src="urlToImage" class="card-img-top"  :alt=title />
+    <img v-else src="../assets/img/Image_not_available.png" class="card-img-top"  :alt=title />
     <div class="card-body">
-      <h5 class="card-title">{{ title }}</h5>
+      <h5 class="card-title">{{ title }}</h5> 
       <p class="card-text">{{ description }}</p>
       <p class="card-text"><small class="text-muted">{{ new Date(Date.parse(publishedAt)) }}</small></p>
       <p class="card-text"><small class="text-muted">By {{ author }}</small>
@@ -40,6 +41,7 @@ const showModal = async () => {
     body: formdata,
     redirect: 'follow'
   };
+  
   loadingModal.value.show()
   const respone = await fetch("https://api.meaningcloud.com/summarization-1.0", requestOptions)
   const data = await respone.json()

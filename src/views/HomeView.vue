@@ -1,16 +1,14 @@
 <script setup>
 
 import Card from '../components/Card.vue'
-import CardOverlays from '../components/CardOverlays.vue'
-import CardNoImg from '../components/CardNoImg.vue';
 import AricleBox from '../components/ArticleBox.vue';
 import ArticleBox_4Cards from '../components/ArticleBox_4Cards.vue';
 import ArticleBox_3Cards from '../components/ArticleBox_3cards.vue';
 
 const article1 = {
    source: {
-      id: 'wired',
-      name: 'Wired'
+      id: "wired",
+      name: "Wired"
    },
    author: 'Boone Ashworth',
    title: 'OnePlus Pad Android Tablet: Details, Specs, Release Date',

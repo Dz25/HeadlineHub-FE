@@ -19,14 +19,14 @@ function handleScroll() {
         <nav class="navbar navbar-expand-md navbar-light navbarTop">
             <div class="container-fluid">
 
-                <a class="navbar-brand ms-3" href="#">
+                <router-link to="/home" class="navbar-brand ms-3">
                     <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="50" class="d-inline-block pt-1 pb-1">
                     <img src="../assets/img/headlinehub-logo.png" alt="Logo" width="" height="40"
                         class="d-inline-block pt-2 pb-2 ps-3">
-                </a>
+                </router-link>
 
                 <div class="d-flex justify-content-center mx-4 d-none d-md-inline">
-                    <span class="me-4"><weather-api/></span>
+                   <weather-api/>
                     <!-- <span>30°C,London</span> -->
                 </div>
                 <!-- Can you change this into like a Profile button. It will navigate to login page if user not sign in( The redirect will be dome by Jay) -->

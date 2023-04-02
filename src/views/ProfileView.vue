@@ -1,7 +1,5 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import Card from '../components/Card.vue'
-import ArticleModal from '../components/ArticleModal.vue';
 import SavedArticleCard from '../components/SavedArticleCard.vue'
 import axios from 'axios';
 
@@ -15,7 +13,8 @@ const formattedSavedArticles = computed(() => {
 });
 
 onMounted(async () => {
-    let res = await axios.get(`http://localhost:8081/api/users/{id}/articles`)
+    let id = localStorage.getItem('userId')
+    let res = await axios.get(`http://localhost:8081/api/users/${id}/articles`)
     console.log(res.data)
     console.log(article.value)
     await nextTick(() => {
