@@ -114,13 +114,13 @@ const handleSubmitComment = async () => {
 
     //POST the comment to the database
     const respone = await axios.post(`http://localhost:8080/api/articles/${articleId.value}/comments`, data, { headers: { "Content-Type": "application/json" } })
-    const status = await respone.status
+    const status = respone.status
 
     if (status == 201) {
         //reload page
         
         const res = await axios.get(`http://localhost:8080/api/articles/${articleId.value}/comments`)
-        comments.value = await res.data
+        comments.value = res.data
         comment.value = ""
     } else {
         alert("Can't post comment! Please try again")
