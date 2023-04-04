@@ -1,14 +1,19 @@
 <script>
-import axios from "axios";
+
+import axios from 'axios';
+
 
 export default {
   data() {
     return {
-      apiKey: "1943725d907ddb4c42da06fe1f30202a",
-      cityName: "",
+
+      apiKey: '1943725d907ddb4c42da06fe1f30202a',
+      cityName: '',
       temperature: 0,
-      condition: "",
-      date: "",
+      condition: '',
+      date: '',
+      imgUrl:''
+
     };
   },
   methods: {
@@ -17,32 +22,32 @@ export default {
       if (this.city) {
         url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apiKey}&units=metric`;
       } else {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apiKey}&units=metric`;
-            this.fetchWeatherData(url);
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
+
+
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apiKey}&units=metric`;
+          this.fetchWeatherData(url);
+        }, (error) => {
+          console.log(error);
+        });
+
       }
       this.fetchWeatherData(url);
     },
     async fetchWeatherData(url) {
       try {
         const response = await axios.get(url);
-        this.temperature = response.data.main.temp;
-        this.condition = response.data.weather[0].description;
-        this.date = new Date().toLocaleString("en-US", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        });
-        this.cityName = response.data.name;
+
+        const data = await response.data
+        this.imgUrl = ` https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
+        this.temperature = data.main.temp;
+        this.condition = data.weather[0].description;
+        this.date = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        this.cityName = data.name;
       } catch (error) {
-        // console.error(error);
+        console.error(error);
+
       }
     },
   },
@@ -53,9 +58,18 @@ export default {
 </script>
 
 <template>
-  <div>
-    <div>
-      <p>{{ date }}, {{ temperature }}&deg;C {{ cityName }}</p>
+
+  <div class="container m-1">
+    <div class="d-flex mt-2">
+      <div class="flex-fill">
+        <img :src="imgUrl" class="img-fluid">
+      </div>
+      <div class="flex-fill flex-column">
+        <p class="text-center mb-0">{{ cityName }}</p>
+        <p class="h5 text-center mt-1">{{ temperature }} &deg;C</p>
+        <p class="mb-0">{{ date }}</p>
+      </div>
     </div>
   </div>
 </template>
+

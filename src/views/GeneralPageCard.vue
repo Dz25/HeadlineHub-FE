@@ -1,6 +1,7 @@
 <script>
 import Card from "../components/Card.vue";
 import axios from "axios";
+
 //  APIKey:"1943725d907ddb4c42da06fe1f30202a",
 export default {
   name: "business",
@@ -46,7 +47,6 @@ export default {
     <div class="card-grid">
       <div v-for="article in articles" :key="index">
         <Card :article="article" />
-        <h4>{{ catagory }}</h4>
       </div>
     </div>
   </div>
@@ -66,3 +66,4 @@ export default {
   margin: 20px;
 }
 </style>
+
