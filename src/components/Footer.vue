@@ -18,13 +18,13 @@
             <div class="col-md-2 mx-auto mb-3">
                 <h6 class="text-uppercase fw-bold mb-3">Categories</h6>
                 <ul class="list-unstyled mb-0">
-                    <li><a href="#" class="text-decoration-none text-white">General</a></li>
-                    <li><a href="#" class="text-decoration-none text-white">Business</a></li>
-                    <li><a href="#" class="text-decoration-none text-white">Entertainment</a></li>
-                    <li><a href="#" class="text-decoration-none text-white">Health</a></li>
-                    <li><a href="#" class="text-decoration-none text-white">Science</a></li>
-                    <li><a href="#" class="text-decoration-none text-white">Sports</a></li>
-                    <li><a href="#" class="text-decoration-none text-white">Technology</a></li>
+                    <li><router-link to="/pages/general"><a href="#" class="text-decoration-none text-white">General</a></router-link></li> 
+                   <li> <router-link to="/pages/business"><a href="#" class="text-decoration-none text-white">Business</a></router-link ></li>
+                    <li><router-link to="/pages/entertainment"><a href="#" class="text-decoration-none text-white">Entertainment</a></router-link></li>
+                    <li><router-link to="/pages/eealth"><a href="#" class="text-decoration-none text-white">Health</a></router-link></li>
+                    <li><router-link to="/pages/science"><a href="#" class="text-decoration-none text-white">Science</a></router-link></li>
+                    <li><router-link to="/pages/sports"><a href="#" class="text-decoration-none text-white">Sports</a></router-link></li>
+                    <li><router-link to="/pages/technology"><a href="#" class="text-decoration-none text-white">Technology</a></router-link></li>
                 </ul>
             </div>
             <!-- Grid column -->

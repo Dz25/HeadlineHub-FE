@@ -1,21 +1,35 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from 'vue-router';
 
 import { computed ,watch} from 'vue';
-
+const route = useRoute();
+const router = useRouter();
 const isScrolled = ref(false);
-const user = computed(() => JSON.parse(localStorage.getItem('user-info')));
-;
+const user = computed(() => localStorage.getItem('userID').toString());
+
+const userName = computed(() => {
+  const username = localStorage.getItem('userName');
+  return username ? username : '';
+});
+
+const searchText = ref('');
+
+
+
+ 
+function handleSubmit(){
+
+}
+
 function logout() {
-  localStorage.removeItem('user-info');
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userId');
   location.reload();
   this.$router.push({name:'signin'});
  
 }
 
-onMounted(() => {
-    window.addEventListener('scroll', handleScroll)
-})
 
 function handleScroll() {
   isScrolled.value = window.pageYOffset > 0;
@@ -29,23 +43,28 @@ function handleScroll() {
         <nav class="navbar navbar-expand-md navbar-light navbarTop">
             <div class="container-fluid">
 
-                <router-link to="/home" class="navbar-brand ms-3">
+                <a class="navbar-brand ms-3" href="#">
                     <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="50" class="d-inline-block pt-1 pb-1">
                     <img src="../assets/img/headlinehub-logo.png" alt="Logo" width="" height="40"
                         class="d-inline-block pt-2 pb-2 ps-3">
-                </router-link>
+                </a>
 
                 <div class="d-flex justify-content-center mx-4 d-none d-md-inline">
-                   <weather-api/>
+                    <span class="me-4"><weather-api/></span>
                     <!-- <span>30°C,London</span> -->
                 </div>
-                <!-- Can you change this into like a Profile button. It will navigate to login page if user not sign in( The redirect will be dome by Jay) -->
-                <router-link to="/profile"><i class="bi bi-person fs-1 mx-3" style="color: white;"></i></router-link>
+                
+                <router-link to="/profile" > <i v-if="userName"  class="bi bi-person fs-1 mx-3 pf" style="color: white;">
+                  
+                          {{""+ " "+userName }}</i></router-link>
                 <div class="d-flex justify-content-end">
-                    <router-link to="/pages/signin" custom v-slot="{ navigate }"> <button @click="navigate" type="button"
+                    <router-link to="/pages/signin" custom v-slot="{ navigate }"> <button @click="navigate" type="button"  v-if="!userName"
                             class="btn btn-light text-dark me-2" role="link">Login</button></router-link>
                     <router-link to="/pages/signup" custom v-slot="{ navigate }"> <button type="button"
-                            class="btn btn-secondary" @click="navigate" role="link">Sign-up</button></router-link>
+                           v-if="!userName" class="btn btn-secondary" @click="navigate" role="link">Sign-up</button></router-link>
+                           <button type="button"
+                           v-if="userName" class="btn btn-secondary" @click="logout" role="link">Log out</button>                         
+
                 </div>
 
             </div>
@@ -62,7 +81,7 @@ function handleScroll() {
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
                         <li class="nav-item">
-                            <router-link to="/home" class="nav-link" aria-current="page">Home</router-link>
+                            <router-link to="/" class="nav-link" aria-current="page">Home</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/pages/general" class="nav-link" href="#">General</router-link>
@@ -88,11 +107,13 @@ function handleScroll() {
                     </ul>
                 </div>
                 <form class="d-flex ms-auto">
-                    <input class="form-control me-2" type="search" placeholder="Enter the keyword" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
+                    <input class="form-control me-2" type="text" v-model="searchText" placeholder="Enter the keyword" aria-label="Search">
+                   
+                    <router-link :to=" `/search/${searchText}`" ><button @click="handleSubmit"
+                        class="btn btn-outline-light" role="link" >Search</button></router-link>
                 </form>
             </div>
-        </nav>
+        </nav>  
 
     </header>
 </template>
@@ -114,6 +135,11 @@ function handleScroll() {
     z-index: 1030;
     background-color: #05668D
 }
+.pf{
+margin-left: 15px;
+
+}
+
 
 .nav-link {
     color: white;

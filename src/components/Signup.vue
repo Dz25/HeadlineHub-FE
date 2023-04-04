@@ -116,11 +116,9 @@ export default {
           this.user.email = '';
           this.user.password = '';
           this.user.name = '';
+          this.$router.push({name:'signup'})
            // Redirect to login page after 3 seconds
-           setTimeout(() => {
-            this.$router.push({name:'signup'})
-          }, 3000);
-          
+         
         })
         .catch((error) => {
           if (error.response.status === 409) {

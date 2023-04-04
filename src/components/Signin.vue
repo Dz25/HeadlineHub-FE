@@ -68,10 +68,11 @@ submitForm(e) {
     .then(response => {
   
       if (response.status==200){
-        localStorage.setItem("user-info",JSON.stringify(response.data))
-        
+        localStorage.setItem("userName",response.data.name)
+        console.log(response.data.name)
+        localStorage.setItem("userID",response.data.id)
         this.$router.push({name:'home'})
-        
+        location.reload
       }
       
     })
