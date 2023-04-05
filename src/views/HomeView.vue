@@ -1,5 +1,4 @@
 <script setup>
-
 import Card from '../components/Card.vue'
 import AricleBox from '../components/ArticleBox.vue';
 import ArticleBox_4Cards from '../components/ArticleBox_4Cards.vue';
@@ -71,8 +70,8 @@ const article4 = {
 
          <!-- Card Example -->
          <!-- <div> -->
-            <!--Modify to pass by article Object to increase readability-->
-            <!-- <Card :article="article1" /> -->
+         <!--Modify to pass by article Object to increase readability-->
+         <!-- <Card :article="article1" /> -->
          <!-- </div> -->
          <!-- END Card Example -->
 
@@ -110,7 +109,7 @@ const article4 = {
 
          </div>
          <!-- END Latest News -->
-         
+
 
          <div class="row my-0  d-flex align-items-stretch">
             <!-- General News Topic -->
@@ -118,7 +117,7 @@ const article4 = {
                <a href="#!" class="text-decoration-none text-reset">
                   <h3 class="pt-2 pb-3" style="color: #05668D;">General</h3>
                </a>
-               
+
                <AricleBox categories="general" />
 
             </div>

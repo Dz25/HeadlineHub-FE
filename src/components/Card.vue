@@ -1,7 +1,9 @@
 <template>
   <div class="card">
+
     <img v-if="urlToImage" :src="urlToImage" class="card-img-top"  :alt=title />
     <img v-else src="../assets/img/Image_not_available.png" class="card-img-top"  :alt=title />
+
     <div class="card-body">
       <h5 class="card-title">{{ title }}</h5> 
       <p class="card-text">{{ description }}</p>
@@ -17,18 +19,20 @@
 </template>
 
 <script setup>
-import { toRefs, ref } from 'vue';
-import ArticleModal from './ArticleModal.vue';
-import LoadingModal from './LoadingModal.vue'
+import { toRefs, ref } from "vue";
+import ArticleModal from "./ArticleModal.vue";
+import LoadingModal from "./LoadingModal.vue";
 
 const props = defineProps({
-  article: Object
-})
-const contentModal = ref(null)
-const loadingModal = ref(null)
-const id = crypto.randomUUID()
-const summary = ref("")
-const { author, title, url, description, urlToImage, publishedAt } = toRefs(props.article)
+  article: Object,
+});
+const contentModal = ref(null);
+const loadingModal = ref(null);
+const id = crypto.randomUUID();
+const summary = ref("");
+const { author, title, url, description, urlToImage, publishedAt } = toRefs(
+  props.article
+);
 
 const showModal = async () => {
   const formdata = new FormData();
@@ -37,10 +41,11 @@ const showModal = async () => {
   formdata.append("sentences", "5");
 
   const requestOptions = {
-    method: 'POST',
+    method: "POST",
     body: formdata,
-    redirect: 'follow'
+    redirect: "follow",
   };
+
   
   loadingModal.value.show()
   const respone = await fetch("https://api.meaningcloud.com/summarization-1.0", requestOptions)
@@ -49,6 +54,7 @@ const showModal = async () => {
   loadingModal.value.hide()
   contentModal.value.show()
 }
+
 
 </script>
 

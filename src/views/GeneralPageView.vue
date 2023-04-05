@@ -3,22 +3,25 @@ import axios from 'axios';
 import Card from '../components/Card.vue';
 import Observer from '../components/Observer.vue';
 export default {
-  name: "CategoryView",
-  props: {},
+  name: "GeneralPageCard",
+  props: { category:  String},
   data() {
     return {
       articles: [],
       currentPage: 1,
+      loading: false,
+      
     };
   },
   methods: {
     async loadMoreArticles() {
-      //waiting for router implementation
-      const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ca&category=business&apiKey=0ae32ab013894da3861579bca8de7c03&page=${this.currentPage}&pageSize=24`)
+      this.loading = true
+      const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ca&category=${this.category}&apiKey=0ae32ab013894da3861579bca8de7c03&page=${this.currentPage}&pageSize=24`)
       const data = res.data
       const newArticles = data.articles
       this.currentPage++
       this.articles.push(...newArticles)
+      this.loading = false
     }
   },
   components: {
@@ -36,7 +39,8 @@ export default {
       </div>
     </div>
     <Observer @intersect="loadMoreArticles" />
-    <div class="text-center my-4">
+
+    <div class="text-center my-4" v-if="loading">
       <div class="spinner-grow text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
@@ -44,20 +48,15 @@ export default {
   </div>
 </template>
 
-
 <style scoped>
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
 }
-
 .active {
   background-color: #ccc;
 }
 
-.pagination-num {
-  text-align: center;
-  margin: 20px;
-}
 </style>
+
