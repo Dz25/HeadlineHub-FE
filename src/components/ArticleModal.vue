@@ -76,6 +76,7 @@ const modalEle = ref(null);
 let thisModalObj = null;
 const comments = ref([]);
 const userId = ref("")
+const userName = ref("")
 const articleId = ref("")
 
 //use watch instead
@@ -85,8 +86,8 @@ let savedToast = ref(null);
 onMounted(async () => {
     thisModalObj = new Modal(modalEle.value);
     //waiting for login page implementation, this is for a mock userId
-    localStorage.setItem("userId", 1)
     userId.value = localStorage.getItem('userId')
+    userName.value = localStorage.getItem('userName')
     savedToast.value = new Toast(document.getElementById('saved-toast'));
 });
 
@@ -108,6 +109,7 @@ watch(props, (cur, prev) => {
 //waiting for the the design
 const handleSubmitComment = async () => {
     const data = {
+        userName: userName.value,
         userId: userId.value,
         comment: comment.value
     }
@@ -117,8 +119,6 @@ const handleSubmitComment = async () => {
     const status = respone.status
 
     if (status == 201) {
-        //reload page
-        
         const res = await axios.get(`http://localhost:8080/api/articles/${articleId.value}/comments`)
         comments.value = res.data
         comment.value = ""

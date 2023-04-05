@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 </script>
@@ -16,6 +16,3 @@ import Footer from './components/Footer.vue'
   </div>
 </template>
 
-<style scoped>
-
-</style>
