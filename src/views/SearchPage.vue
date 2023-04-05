@@ -6,7 +6,7 @@ const route = inject('$route')
 ;
 //  APIKey:"1943725d907ddb4c42da06fe1f30202a",
 export default {
-  name: "business",
+  name: "searchPage",
  
   data() {
     return {
@@ -17,20 +17,13 @@ export default {
     };
   },
   
-  // watch: {
-  //   searchText() {
-  //     this.$forceUpdate();
-  //   }
-  // },
+  
   mounted() {
-    this.fetchNews(this.currentPage);
-    const searchText = this.$route.params.searchedText;
+    
+     searchText = this.$route.params.searchedText;
     console.log(this.$route.params.searchedText)
+    this.fetchNews(this.currentPage);
 
-// update the searchText value
-if (searchText) {
-  this.searchText = searchText;
-}
   },
   methods: {
     fetchNews(page) {

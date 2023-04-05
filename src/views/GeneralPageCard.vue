@@ -4,21 +4,14 @@ import axios from "axios";
 
 //  APIKey:"1943725d907ddb4c42da06fe1f30202a",
 export default {
-  name: "business",
-  props: { catagory:  String},
+  name: "GeneralPageCard",
+  props: { category:  String},
   data() {
     return {
       articles: [],
       currentPage: 1,
       totalPages: null,
     };
-  },watch: {
-    catagory: function(newValue, oldValue) {
-      // Trigger a full page reload when the message prop changes
-      if (newValue !== oldValue) {
-        window.location.reload();
-      }
-    },
   },
   mounted() {
     this.fetchNews(this.currentPage);
@@ -26,7 +19,7 @@ export default {
   methods: {
     fetchNews(page) {
       const apiKey = "9b36dcd8d2c749b7994e5a59abcb3c81";
-      const url = `https://newsapi.org/v2/top-headlines?category=${this.catagory}&language=en&apiKey=${apiKey}&page=${page}`;
+      const url = `https://newsapi.org/v2/top-headlines?category=${this.category}&language=en&apiKey=${apiKey}&page=${page}`;
       axios
         .get(url)
         .then((response) => {

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from 'vue-router';
-
+import WeatherApi from './WeatherApi.vue';
 import { computed ,watch} from 'vue';
 const route = useRoute();
 const router = useRouter();
