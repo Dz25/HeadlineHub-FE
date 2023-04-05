@@ -1,4 +1,7 @@
 <script setup>
+import Card from "../components/Card.vue";
+import NoImgNews from "../components/NoImgNews.vue";
+
 
 import Card from '../components/Card.vue'
 import AricleBox from '../components/ArticleBox.vue';

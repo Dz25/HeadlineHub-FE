@@ -65,6 +65,7 @@ import { Modal, Toast } from "bootstrap";
 import Comment from './Comment.vue';
 
 const props = defineProps({
+
     data: Object,
     id: String,
     summary: String
@@ -73,6 +74,7 @@ const props = defineProps({
 const { source, title, url, urlToImage } = toRefs(props.data)
 const comment = ref("")
 const modalEle = ref(null);
+
 let thisModalObj = null;
 const comments = ref([]);
 const userId = ref("")

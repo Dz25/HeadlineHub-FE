@@ -1,15 +1,19 @@
 <script>
+
 import axios from 'axios';
+
 
 export default {
   data() {
     return {
+
       apiKey: '1943725d907ddb4c42da06fe1f30202a',
       cityName: '',
       temperature: 0,
       condition: '',
       date: '',
       imgUrl:''
+
     };
   },
   methods: {
@@ -18,6 +22,8 @@ export default {
       if (this.city) {
         url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apiKey}&units=metric`;
       } else {
+
+
         navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords;
           url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apiKey}&units=metric`;
@@ -25,12 +31,14 @@ export default {
         }, (error) => {
           console.log(error);
         });
+
       }
       this.fetchWeatherData(url);
     },
     async fetchWeatherData(url) {
       try {
         const response = await axios.get(url);
+
         const data = await response.data
         this.imgUrl = ` https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
         this.temperature = data.main.temp;
@@ -39,6 +47,7 @@ export default {
         this.cityName = data.name;
       } catch (error) {
         console.error(error);
+
       }
     },
   },
@@ -49,6 +58,7 @@ export default {
 </script>
 
 <template>
+
   <div class="container m-1">
     <div class="d-flex mt-2">
       <div class="flex-fill">
@@ -62,3 +72,4 @@ export default {
     </div>
   </div>
 </template>
+
