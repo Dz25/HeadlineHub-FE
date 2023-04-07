@@ -43,11 +43,11 @@ function handleScroll() {
         <nav class="navbar navbar-expand-md navbar-light navbarTop">
             <div class="container-fluid">
 
-                <a class="navbar-brand ms-3" href="#">
+                <router-link class="navbar-brand ms-3" to="/">
                     <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="50" class="d-inline-block pt-1 pb-1">
                     <img src="../assets/img/headlinehub-logo.png" alt="Logo" width="" height="40"
                         class="d-inline-block pt-2 pb-2 ps-3">
-                </a>
+                </router-link>
 
                 <div class="d-flex justify-content-center mx-4 d-none d-md-inline">
                     <span class="me-4"><weather-api/></span>
@@ -84,25 +84,25 @@ function handleScroll() {
                             <router-link to="/" class="nav-link" aria-current="page">Home</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/pages/general" class="nav-link" href="#">General</router-link>
+                            <router-link to="/pages/general" class="nav-link">General</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/pages/business" class="nav-link" href="#">Business</router-link>
+                            <router-link to="/pages/business" class="nav-link">Business</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/pages/entertainment" class="nav-link" href="#">Entertainment</router-link>
+                            <router-link to="/pages/entertainment" class="nav-link">Entertainment</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/pages/health" class="nav-link" href="#">Health</router-link>
+                            <router-link to="/pages/health" class="nav-link">Health</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/pages/science" class="nav-link" href="#">Science</router-link>
+                            <router-link to="/pages/science" class="nav-link">Science</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/pages/sports" class="nav-link" href="#">Sports</router-link>
+                            <router-link to="/pages/sports" class="nav-link">Sports</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/pages/technology" class="nav-link" href="#">Technology</router-link>
+                            <router-link to="/pages/technology" class="nav-link">Technology</router-link>
                         </li>
                     </ul>
                 </div>

@@ -4,7 +4,7 @@
       
       <div class="ermsg" v-if="errorMessage">{{ errorMessage }}</div>
       <div  class="sussmsg" v-if="successMessage">{{ successMessage }}</div>
-      <h3>Sign In</h3>
+      <h3>Sign Up</h3>
       
       <form @submit.prevent="submitForm" class="">
         <div class="form-group">
@@ -134,7 +134,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .tempwidth{
 width: 400px;
 margin-left: 33%;

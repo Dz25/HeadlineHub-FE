@@ -1,9 +1,9 @@
 
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import GeneralPagecard from "../views/GeneralPageCard.vue";
-import signin from "../components/Signin.vue";
-import signup from "../components/SignUp.vue";
+import GeneralPagecard from "../views/GeneralPageView.vue";
+import signin from "../views/SigninView.vue";
+import signup from "../views/SignUpView.vue";
 import profile from "../views/ProfileView.vue";
 import search from "../views/SearchPage.vue"
 

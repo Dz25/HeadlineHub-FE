@@ -87,7 +87,8 @@ submitForm(e) {
 
 <style>
 .tempwidth{
-width: 400px;
+margin: 3em 0;
+width: 40%;
 margin-left: 33%;
 }
 .btclass{

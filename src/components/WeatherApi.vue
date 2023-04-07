@@ -46,7 +46,7 @@ export default {
         this.date = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
         this.cityName = data.name;
       } catch (error) {
-        console.error(error);
+        console.log(error);
 
       }
     },
