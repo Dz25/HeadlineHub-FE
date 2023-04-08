@@ -34,7 +34,7 @@ export default {
 <template>
   <div>
     <div class="card-grid">
-      <div v-for="article in articles" :key="article.author">
+      <div v-for="(article,index) in articles" :key="index">
         <Card :article="article" />
       </div>
     </div>
@@ -50,6 +50,7 @@ export default {
 
 <style scoped>
 .card-grid {
+  margin-top: 3em;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;

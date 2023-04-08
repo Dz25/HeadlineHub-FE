@@ -1,101 +1,120 @@
 <template>
-  <div class="vue-tempalte">
-    <div class="tempwidth">
+  <div class="signbody">
+    <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="90">
+    <h1>Sign In</h1>
+    <div class="signin">
+      <input type="text" v-model="email" placeholder="Enter Email" />
+      <input type="password" v-model="password" placeholder="Enter Password" />
+      <button @click="signIn">Sign in</button>
+      <router-link to="/pages/signup" custom v-slot="{ navigate }">
+        <button type="button" class="btnsignin" @click="navigate" role="link">Don't have an account?
+          Sign up</button></router-link>
       <div class="ermsg" v-if="errorMessage">{{ errorMessage }}</div>
-    <h3>Sign In</h3>
-    <form @submit.prevent="submitForm" class="">
-      
+      <div class="sussmsg" v-if="successMessage">{{ successMessage }}</div>
+    </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input v-model="email" type="email" name="email" id="email" class="form-control form-control-lg" :class="{ 'is-invalid': formErrors.email }" required>
-        <div class="invalid-feedback" v-if="formErrors.email">{{ formErrors.email[0] }}</div>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input v-model="password" type="password" name="password" id="password" class="form-control form-control-lg" :class="{ 'is-invalid': formErrors.password }" required>
-        <div class="invalid-feedback" v-if="formErrors.password">{{ formErrors.password[0] }}</div>
-      </div>
-      <div class="btclass">
-      <router-link to="/pages/signUp" custom v-slot="{ navigate }">
-            <button
-              @click="navigate"
-              type="button"
-              class="btn btn-light text-dark me-2"
-              role="link"
-            >
-              Don't have account? Register
-            </button></router-link>
-      <button type="submit" class="btn btn-dark btn-lg btn-block">{{ submitButtonText }}</button>
-      
-    </div> 
-          
-    </form>
   </div>
-  </div>
-
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-data() {
-return {
-  name: '',
-  email: '',
-  password: '',
-  submitButtonText: 'Sign In ',
-  errorMessage:"",
-  formErrors: {},
-};
-},
-
-methods: {
-
-submitForm(e) {
- e.preventDefault();
-  axios.post("http://localhost:8080/api/users/signin", {
-          email: this.email,
-          password: this.password
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      submitButtonText: 'Sign In ',
+      errorMessage: "",
+      formErrors: {},
+    };
   },
-  {
-			headers: {
-				"Content-Type":"application/json"	
-      }
-			})
-    .then(response => {
-  
-      if (response.status==200){
-        localStorage.setItem("userName",response.data.name)
-        console.log(response.data.name)
-        localStorage.setItem("userID",response.data.id)
-        this.$router.push({name:'home'})
-        location.reload
-      }
-      
-    })
-    .catch(error => {
-      this.errorMessage = 'please check your Id and password';
 
-    });
-},
-},
+  methods: {
+
+    signIn(e) {
+      e.preventDefault();
+      axios.post("http://localhost:8080/api/users/signin", {
+        email: this.email,
+        password: this.password
+      },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+
+          if (response.status == 200) {
+            localStorage.setItem("userName", response.data.name)
+            console.log(response.data.name)
+            localStorage.setItem("userID", response.data.id)
+
+
+            this.email = "";
+            this.password = "";
+            this.$router.push({ name: 'home' })
+          }
+
+        })
+        .catch(error => {
+          this.errorMessage = 'please check your Id and password';
+
+        });
+    },
+  },
 };
 </script>
 
 <style>
-.tempwidth{
-margin: 3em 0;
-width: 40%;
-margin-left: 33%;
+.signbody {
+  margin-top: 3em;
+  margin-bottom: 3em;
+  text-align: center;
 }
-.btclass{
-  margin: 10px;
-  padding: 20px;
+
+.signin input {
+  width: 300px;
+  height: 40px;
+  padding-left: 20px;
+  display: block;
+  margin-bottom: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid skyblue;
 }
-.ermsg{
-color: red;
+
+.signin button {
+  width: 320px;
+  height: 40px;
+  padding-left: 20px;
+  display: block;
+  margin-bottom: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #fff;
+  background: #06af9b;
+  border: 1px solid skyblue;
+  text-align: center;
+}
+
+.signin .btnsignin {
+  width: 320px;
+  height: 40px;
+  border: 1px solid skyblue;
+  background: rgb(199, 96, 12);
+  color: #fff;
+  cursor: pointer;
+}
+
+.ermsg {
+  color: red;
+  margin-bottom: 20px;
+}
+
+.sussmsg {
+  color: green;
+  margin-bottom: 20px;
 }
 </style>

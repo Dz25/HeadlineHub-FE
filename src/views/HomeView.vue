@@ -86,8 +86,8 @@ const article4 = {
                   </div>
                   <div class="col-lg-4">
                      <div class="row row-cols-1 p-4 g-4">
-                        <CardNoImg :article="article1" />
-                        <CardNoImg :article="article3" />
+                        <Card :article="article1" />
+                        <Card :article="article3" />
                      </div>
                   </div>
                </div>

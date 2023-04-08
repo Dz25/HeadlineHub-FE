@@ -87,9 +87,6 @@ let savedToast = ref(null);
 
 onMounted(async () => {
     thisModalObj = new Modal(modalEle.value);
-    //waiting for login page implementation, this is for a mock userId
-    userId.value = localStorage.getItem('userId')
-    userName.value = localStorage.getItem('userName')
     savedToast.value = new Toast(document.getElementById('saved-toast'));
 });
 
@@ -132,6 +129,8 @@ const handleSubmitComment = async () => {
 
 
 const saveArticle = () => {
+    userId.value = localStorage.getItem('userId')
+    userName.value = localStorage.getItem('userName')
     axios.post(`http://localhost:8080/api/users/${userId.value}/articles`, {
         title: title.value,
         summary: props.summary,

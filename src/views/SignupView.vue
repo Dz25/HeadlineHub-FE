@@ -1,79 +1,17 @@
 <template>
-  <div class="vue-tempalte">
-    <div class="tempwidth">
-      
+  <div class="signbody">
+    <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="90">
+    <h1>Sign Up</h1>
+    <div class="signup">
+      <input type="text" v-model="name" placeholder="Enter Name" />
+      <input type="text" v-model="email" placeholder="Enter Email" />
+      <input type="password" v-model="password" placeholder="Enter Password" />
+      <button @click="signUp">Sign Up</button>
+      <router-link to="/pages/signin" custom v-slot="{ navigate }">
+        <button type="button" class="btnsignin" @click="navigate" role="link">Already have an account?
+          Sign in</button></router-link>
       <div class="ermsg" v-if="errorMessage">{{ errorMessage }}</div>
-      <div  class="sussmsg" v-if="successMessage">{{ successMessage }}</div>
-      <h3>Sign Up</h3>
-      
-      <form @submit.prevent="submitForm" class="">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            v-model="name"
-            type="text"
-            name="name"
-            id="name"
-            class="form-control form-control-lg"
-            :class="{ 'is-invalid': formErrors.name }"
-            required
-            autofocus
-          />
-          <div class="invalid-feedback" v-if="formErrors.name">
-            {{ formErrors.name[0] }}
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            v-model="email"
-            type="email"
-            name="email"
-            id="email"
-            class="form-control form-control-lg"
-            :class="{ 'is-invalid': formErrors.email }"
-            required
-          />
-          <div class="invalid-feedback" v-if="formErrors.email">
-            {{ formErrors.email[0] }}
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            v-model="password"
-            type="password"
-            name="password"
-            id="password"
-            class="form-control form-control-lg"
-            :class="{ 'is-invalid': formErrors.password }"
-            required
-          />
-          <div class="invalid-feedback" v-if="formErrors.password">
-            {{ formErrors.password[0] }}
-          </div>
-        </div>
-        <div class="btclass">
-          <router-link to="/pages/signin" custom v-slot="{ navigate }">
-            <button
-              @click="navigate"
-              type="button"
-              class="btn btn-light text-dark me-2"
-              role="link"
-            >
-              already have an account?Sign in 
-            </button></router-link>
-            <button type="submit" class="btn btn-dark btn-lg btn-block">
-          {{ submitButtonText }}
-        </button>
-            
-            </div>
-        
-      </form>
-      
-  
+      <div class="sussmsg" v-if="successMessage">{{ successMessage }}</div>
     </div>
   </div>
 </template>
@@ -89,36 +27,35 @@ export default {
       password: "",
       submitButtonText: "Register",
       formErrors: {},
-      errorMessage:"",
-      successMessage:""
+      errorMessage: "",
+      successMessage: ""
     };
   },
 
   methods: {
-    submitForm(e) {
+    signUp(e) {
       e.preventDefault();
-
+      console.log("done")
       axios
         .post("http://localhost:8080/api/users/signup", {
           name: this.name,
           email: this.email,
           password: this.password,
         }, {
-			headers: {
-				"Content-Type":"application/json"
-      }
-			})
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
         .then((response) => {
-          
-              // User was successfully registered
+
+          // User was successfully registered
           this.errorMessage = '';
           this.successMessage = 'User was successfully registered.';
-          this.user.email = '';
-          this.user.password = '';
-          this.user.name = '';
-          this.$router.push({name:'signup'})
-           // Redirect to login page after 3 seconds
-         
+          this.email = '';
+          this.password = '';
+          this.name = '';
+          this.$router.push({ name: 'signin' });
+
         })
         .catch((error) => {
           if (error.response.status === 409) {
@@ -134,19 +71,54 @@ export default {
 };
 </script>
 
-<style scoped>
-.tempwidth{
-width: 400px;
-margin-left: 33%;
+<style>
+.signbody {
+  text-align: center;
+  margin-top: 3em;
+  margin-bottom: 3em;
 }
-.btclass{
-  margin-top: 10px;
-  
+
+.signup input {
+  width: 300px;
+  height: 40px;
+  padding-left: 20px;
+  display: block;
+  margin-bottom: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid skyblue;
 }
-.ermsg{
-color: red;
+
+.signup button {
+  width: 320px;
+  height: 40px;
+  padding-left: 20px;
+  display: block;
+  margin-bottom: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #fff;
+  background: #06af9b;
+  border: 1px solid skyblue;
+  text-align: center;
 }
-.sussmsg{
+
+.signup .btnsignin {
+  width: 320px;
+  height: 40px;
+  border: 1px solid skyblue;
+  background: rgb(199, 96, 12);
+  color: #fff;
+  cursor: pointer;
+}
+
+.ermsg {
+  color: red;
+  margin-bottom: 20px;
+}
+
+.sussmsg {
   color: green;
+  margin-bottom: 20px;
 }
 </style>
