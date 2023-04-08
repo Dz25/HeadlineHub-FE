@@ -58,17 +58,3 @@ const showModal = async () => {
 
 </script>
 
-<style>
-.card-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-p {
-  margin: 0.5%;
-}
-.float-right {
-    float: right;
-  }
-</style>

@@ -9,7 +9,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img :src=urlToImage class="img-fluid" :alt=title>
+                    <img v-if="urlToImage" :src="urlToImage" class="card-img-top" :alt=title />
+                    <img v-else src="../assets/img/Image_not_available.png" class="card-img-top" :alt=title />
                     <figure class="p-1 mt-1">
                         <blockquote class="blockquote">
                             <p>{{ summary }}</p>
@@ -93,12 +94,12 @@ onMounted(async () => {
 watch(props, (cur, prev) => {
     const article = {
         title: title.value,
-        urlToImage: props.data.urlToImage,  
+        urlToImage: props.data.urlToImage,
         url: props.data.url,
         summary: props?.summary
     }
     //Check if article already exists in the database and get the id
-    
+
     axios.post(`http://localhost:8080/api/articles`, article, { headers: { "Content-Type": "application/json" } }).then((res) => {
         articleId.value = res.data.id
         return axios.get(`http://localhost:8080/api/articles/${res.data.id}/comments`)
@@ -153,19 +154,6 @@ const saveArticle = () => {
 function _show() {
     thisModalObj.show();
 }
-
-// function saveArticle() {
-//     const article = {
-//         title: title.value,
-//         description: description.value,
-//         url: url.value,
-//         urlToImage: urlToImage.value,
-//         publishedAt: publishedAt.value
-//     };
-//     // emit an event with the article data
-//     emit('save-article', article);
-//     isSaved.value = true;
-// }
 
 defineExpose({ show: _show });
 </script>
