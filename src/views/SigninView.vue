@@ -52,7 +52,7 @@ export default {
           if (response.status == 200) {
             localStorage.setItem("userName", response.data.name);
             console.log(response.data.name);
-            localStorage.setItem("userID", response.data.id);
+            localStorage.setItem("userId", response.data.id);
 
             this.email = "";
             this.password = "";
