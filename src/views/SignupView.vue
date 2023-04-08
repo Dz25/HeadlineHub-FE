@@ -1,6 +1,6 @@
 <template>
   <div class="signbody">
-    <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="90">
+    <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="90" />
     <h1>Sign Up</h1>
     <div class="signup">
       <input type="text" v-model="name" placeholder="Enter Name" />
@@ -8,8 +8,10 @@
       <input type="password" v-model="password" placeholder="Enter Password" />
       <button @click="signUp">Sign Up</button>
       <router-link to="/pages/signin" custom v-slot="{ navigate }">
-        <button type="button" class="btnsignin" @click="navigate" role="link">Already have an account?
-          Sign in</button></router-link>
+        <button type="button" class="btnsignin" @click="navigate" role="link">
+          Already have an account? Sign in
+        </button></router-link
+      >
       <div class="ermsg" v-if="errorMessage">{{ errorMessage }}</div>
       <div class="sussmsg" v-if="successMessage">{{ successMessage }}</div>
     </div>
@@ -28,42 +30,44 @@ export default {
       submitButtonText: "Register",
       formErrors: {},
       errorMessage: "",
-      successMessage: ""
+      successMessage: "",
     };
   },
 
   methods: {
     signUp(e) {
       e.preventDefault();
-      console.log("done")
+      console.log("done");
       axios
-        .post("http://localhost:8080/api/users/signup", {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        }, {
-          headers: {
-            "Content-Type": "application/json"
+        .post(
+          "http://localhost:8080/api/users/signup",
+          {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        })
-        .then((response) => {
-
+        )
+        .then(() => {
           // User was successfully registered
-          this.errorMessage = '';
-          this.successMessage = 'User was successfully registered.';
-          this.email = '';
-          this.password = '';
-          this.name = '';
-          this.$router.push({ name: 'signin' });
-
+          this.errorMessage = "";
+          this.successMessage = "User was successfully registered.";
+          this.email = "";
+          this.password = "";
+          this.name = "";
+          this.$router.push({ name: "signin" });
         })
         .catch((error) => {
           if (error.response.status === 409) {
             // User already exists
-            this.errorMessage = 'User with this email already exists.';
+            this.errorMessage = "User with this email already exists.";
           } else {
             // Some other error occurred
-            this.errorMessage = 'Error occurred while registering user.';
+            this.errorMessage = "Error occurred while registering user.";
           }
         });
     },

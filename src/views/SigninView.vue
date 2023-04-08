@@ -1,66 +1,66 @@
 <template>
   <div class="signbody">
-    <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="90">
+    <img src="../assets/img/hh-icon.png" alt="Logo" width="" height="90" />
     <h1>Sign In</h1>
     <div class="signin">
       <input type="text" v-model="email" placeholder="Enter Email" />
       <input type="password" v-model="password" placeholder="Enter Password" />
       <button @click="signIn">Sign in</button>
       <router-link to="/pages/signup" custom v-slot="{ navigate }">
-        <button type="button" class="btnsignin" @click="navigate" role="link">Don't have an account?
-          Sign up</button></router-link>
+        <button type="button" class="btnsignin" @click="navigate" role="link">
+          Don't have an account? Sign up
+        </button></router-link
+      >
       <div class="ermsg" v-if="errorMessage">{{ errorMessage }}</div>
       <div class="sussmsg" v-if="successMessage">{{ successMessage }}</div>
     </div>
-
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      submitButtonText: 'Sign In ',
+      name: "",
+      email: "",
+      password: "",
+      submitButtonText: "Sign In ",
       errorMessage: "",
       formErrors: {},
     };
   },
 
   methods: {
-
     signIn(e) {
       e.preventDefault();
-      axios.post("http://localhost:8080/api/users/signin", {
-        email: this.email,
-        password: this.password
-      },
-        {
-          headers: {
-            "Content-Type": "application/json"
+      axios
+        .post(
+          "http://localhost:8080/api/users/signin",
+          {
+            email: this.email,
+            password: this.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        })
-        .then(response => {
-
+        )
+        .then((response) => {
           if (response.status == 200) {
-            localStorage.setItem("userName", response.data.name)
-            console.log(response.data.name)
-            localStorage.setItem("userID", response.data.id)
-
+            localStorage.setItem("userName", response.data.name);
+            console.log(response.data.name);
+            localStorage.setItem("userID", response.data.id);
 
             this.email = "";
             this.password = "";
-            this.$router.push({ name: 'home' })
+            this.$router.push({ name: "home" });
           }
-
         })
-        .catch(error => {
-          this.errorMessage = 'please check your Id and password';
-
+        .catch(() => {
+          this.errorMessage = "please check your Id and password";
         });
     },
   },

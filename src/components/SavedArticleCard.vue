@@ -1,29 +1,50 @@
 <script setup>
-import { toRefs, ref } from 'vue';
-import ArticleModal from './ArticleModal.vue';
-import LoadingModal from './LoadingModal.vue'
-import axios from 'axios';
+import { toRefs, ref } from "vue";
+import axios from "axios";
 
+const props = defineProps({
+  data: Object,
+});
+const { summary, title, url, urlToImage } = toRefs(props.data);
 </script>
 
 <template>
-    <div class="card m-3">
-        <div class="row g-0">
-            <div class="col-md-5">
-                <img :src=urlToImage class="card-img-top" :alt=title />
-            </div>
-            <div class="col-md-7">
-                <div class="card-body">
-                    <h5 class="card-title">Card title: {{ title }}</h5>
-                    <p class="card-text">Description: {{ description }}</p>
-                </div>
-            </div>
-            <span><button class="btn btn-outline-success float-right m-3" @click="showModal">Read More</button></span>
-            <span><button class="btn btn-outline-warning float-right m-3 mt-0">Delete</button></span>
-            <ArticleModal ref="contentModal" :data=article :id=id :summary=summary />
-            <LoadingModal ref="loadingModal" />
+  <div class="card m-3">
+    <div class="row g-0">
+      <div class="col-md-5">
+        <img
+          v-if="urlToImage"
+          :src="urlToImage"
+          class="card-img-top"
+          :alt="title"
+        />
+        <img
+          v-else
+          src="../assets/img/Image_not_available.png"
+          class="card-img-top"
+          :alt="title"
+        />
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+          <h5 class="card-title">Card title: {{ title }}</h5>
+          <p class="card-text">Summary: {{ summary }}</p>
         </div>
+      </div>
+      <!-- No need the modal, we can just direct them to the news url -->
+      <span
+        ><a class="btn btn-outline-success float-right m-3" :href="url"
+          >Read More</a
+        ></span
+      >
+      <!-- Need to emits a delete function and implement it here -->
+      <span
+        ><button class="btn btn-outline-warning float-right m-3 mt-0">
+          Delete
+        </button></span
+      >
     </div>
+  </div>
 </template>
-  
+
 <style></style>
