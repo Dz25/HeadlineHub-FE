@@ -1,19 +1,44 @@
 <template>
   <div class="card">
-
-    <img v-if="urlToImage" :src="urlToImage" class="card-img-top"  :alt=title />
-    <img v-else src="../assets/img/Image_not_available.png" class="card-img-top"  :alt=title />
+    <img
+      v-if="urlToImage"
+      :src="urlToImage"
+      class="card-img-top"
+      :alt="title"
+    />
+    <img
+      v-else
+      src="../assets/img/Image_not_available.png"
+      class="card-img-top"
+      :alt="title"
+    />
 
     <div class="card-body">
-      <h5 class="card-title">{{ title }}</h5> 
+      <h5 class="card-title">{{ title }}</h5>
       <p class="card-text">{{ description }}</p>
-      <p class="card-text"><small class="text-muted">{{ new Date(Date.parse(publishedAt)) }}</small></p>
-      <p class="card-text"><small class="text-muted">By {{ author }}</small>
-      <span><button class="btn btn-outline-success float-right" @click="showModal">Read More</button>
-</span>
+      <p class="card-text">
+        <small class="text-muted">{{
+          new Date(Date.parse(publishedAt))
+        }}</small>
       </p>
-      <ArticleModal ref="contentModal" :data=article :id=id :summary=summary />
-      <LoadingModal ref="loadingModal"/>
+      <p class="card-text">
+        <small class="text-muted">By {{ author }}</small>
+        <span
+          ><button
+            class="btn btn-outline-success float-right"
+            @click="showModal"
+          >
+            Read More
+          </button>
+        </span>
+      </p>
+      <ArticleModal
+        ref="contentModal"
+        :data="article"
+        :id="id"
+        :summary="summary"
+      />
+      <LoadingModal ref="loadingModal" />
     </div>
   </div>
 </template>
@@ -46,29 +71,14 @@ const showModal = async () => {
     redirect: "follow",
   };
 
-  
-  loadingModal.value.show()
-  const respone = await fetch("https://api.meaningcloud.com/summarization-1.0", requestOptions)
-  const data = await respone.json()
-  summary.value = data.summary
-  loadingModal.value.hide()
-  contentModal.value.show()
-}
-
-
+  loadingModal.value.show();
+  const respone = await fetch(
+    "https://api.meaningcloud.com/summarization-1.0",
+    requestOptions
+  );
+  const data = await respone.json();
+  summary.value = data.summary;
+  loadingModal.value.hide();
+  contentModal.value.show();
+};
 </script>
-
-<style>
-.card-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-p {
-  margin: 0.5%;
-}
-.float-right {
-    float: right;
-  }
-</style>
