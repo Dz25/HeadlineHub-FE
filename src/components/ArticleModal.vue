@@ -142,6 +142,8 @@ onMounted(async () => {
 });
 
 watch(props, () => {
+  userName.value = localStorage.getItem("userName")
+  userId.value = localStorage.getItem("userId");
   const article = {
     title: title.value,
     urlToImage: props.data.urlToImage,
