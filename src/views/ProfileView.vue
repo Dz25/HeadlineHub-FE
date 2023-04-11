@@ -4,12 +4,20 @@ import SavedArticleCard from "../components/SavedArticleCard.vue";
 import axios from "axios";
 
 const savedArticles = ref();
-
-onMounted(async () => {
-  let id = localStorage.getItem("userId");
-  let res = await axios.get(`http://localhost:8080/api/users/${id}/articles`);
+const userId = ref();
+const handleDelete = async (id) => {
+  let res = await axios.delete(`http://localhost:8080/api/users/${userId.value}/articles/${id}`)
+  res.status == 200 ? getArticles() : ""
+}
+const getArticles = async () => {
+  let res = await axios.get(`http://localhost:8080/api/users/${userId.value}/articles`);
   console.log(res.data);
   savedArticles.value = res.data;
+}
+
+onMounted(async () => {
+  userId.value = localStorage.getItem("userId");
+  getArticles()
 });
 </script>
 
@@ -24,9 +32,9 @@ onMounted(async () => {
       <!-- <ArticleModal @save="saveArticle" /> -->
 
       <div v-if="savedArticles">
-        <div v-for="(article, index) in savedArticles" :key="index">
+        <div v-for="(article, index) in savedArticles" :key="article.id">
           <!-- The article from the database include title, summary, url, urlToImage, no need to pass summary -->
-          <SavedArticleCard :data="article" :id="index" />
+          <SavedArticleCard :data="article" @deleteArticle="handleDelete(article.id)" />
         </div>
       </div>
       <div v-else>
