@@ -1,19 +1,15 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import SavedArticleCard from "../components/SavedArticleCard.vue";
 import axios from "axios";
 
-const savedArticles = ref([]);
-const saveArticle = (article) => {
-  savedArticles.value.push(article);
-};
+const savedArticles = ref();
 
 onMounted(async () => {
   let id = localStorage.getItem("userId");
-  let res = await axios.get(`http://localhost:8081/api/users/${id}/articles`);
+  let res = await axios.get(`http://localhost:8080/api/users/${id}/articles`);
   console.log(res.data);
-  console.log(article.value);
-  saveArticles.value = res.data.articles;
+  savedArticles.value = res.data;
 });
 </script>
 
@@ -24,12 +20,10 @@ onMounted(async () => {
         Saved Articles
       </h1>
 
-      <SavedArticleCard />
-
       <!-- use the savedArticles, saveArticle, and formattedSavedArticles variables here -->
       <!-- <ArticleModal @save="saveArticle" /> -->
 
-      <div v-if="savedArticles.length > 0">
+      <div v-if="savedArticles">
         <div v-for="(article, index) in savedArticles" :key="index">
           <!-- The article from the database include title, summary, url, urlToImage, no need to pass summary -->
           <SavedArticleCard :data="article" :id="index" />

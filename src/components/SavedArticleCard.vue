@@ -27,7 +27,7 @@ const { summary, title, url, urlToImage } = toRefs(props.data);
       </div>
       <div class="col-md-7">
         <div class="card-body">
-          <h5 class="card-title">Card title: {{ title }}</h5>
+          <h5 class="card-title">{{ title }}</h5>
           <p class="card-text">Summary: {{ summary }}</p>
         </div>
       </div>
