@@ -10,7 +10,7 @@
         height="50"
       />
       <div>
-        <h6 class="fw-bold mb-1">Anonymous user</h6>
+        <h6 class="fw-bold mb-1">{{ userName  }}</h6>
         <div class="d-flex align-items-center mb-3">
           <p class="mb-0">
             <small>
@@ -30,5 +30,5 @@
 import { toRefs } from "vue";
 
 const props = defineProps({ comment: Object });
-const { postedTime, comment, userId } = toRefs(props.comment);
+const { postedTime, comment, userName } = toRefs(props.comment);
 </script>
