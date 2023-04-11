@@ -5,7 +5,7 @@ import axios from "axios";
 const props = defineProps({
   data: Object,
 });
-const { summary, title, url, urlToImage } = toRefs(props.data);
+const { id, summary, title, url, urlToImage } = toRefs(props.data);
 </script>
 
 <template>
@@ -39,7 +39,7 @@ const { summary, title, url, urlToImage } = toRefs(props.data);
       >
       <!-- Need to emits a delete function and implement it here -->
       <span
-        ><button class="btn btn-outline-warning float-right m-3 mt-0">
+        ><button class="btn btn-outline-warning float-right m-3 mt-0" @click="$emit('deleteArticle')">
           Delete
         </button></span
       >
