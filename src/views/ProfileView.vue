@@ -20,7 +20,7 @@ onMounted(async () => {
   getArticles()
 });
 </script>
-
+  
 <template>
   <div class="container-fluid">
     <div class="row px-4 py-4" style="background-color: #f4e4c1">

@@ -60,7 +60,7 @@ export default {
           }
         })
         .catch(() => {
-          this.errorMessage = "please check your Id and password";
+          this.errorMessage = "Please check your email and password";
         });
     },
   },

@@ -64,7 +64,7 @@ export default {
       </div>
       <div class="flex-fill flex-column">
         <p class="text-center mb-0">{{ cityName }}</p>
-        <p class="h5 text-center mt-1">{{ temperature }} &deg;C</p>
+        <p class="h5 text-center mt-1">{{ Math.round(temperature) }} &deg;C</p>
         <p class="mb-0">{{ date }}</p>
       </div>
     </div>

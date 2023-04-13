@@ -9,7 +9,7 @@
             <p class="mb-4">
               we are sorry, but the page you requested was not found
             </p>
-            <router-link to="/home" class="btn btn-dark">Go Home</router-link>
+            <router-link to="/" class="btn btn-dark">Go Home</router-link>
           </div>
         </div>
       </div>

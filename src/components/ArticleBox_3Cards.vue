@@ -11,7 +11,7 @@ const props = defineProps({
 
 onMounted(async () => {
   let res = await axios.get(
-    `https://newsapi.org/v2/top-headlines?country=ca&category=${props.categories}&apiKey=bf5522d648c8464a91ab8cd337f590a8&pageSize=3`
+    `https://newsapi.org/v2/top-headlines?country=ca&category=${props.categories}&apiKey=0ae32ab013894da3861579bca8de7c03&pageSize=3`
   );
   // console.log(res.data)
   // console.log(article.value)
