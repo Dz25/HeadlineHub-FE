@@ -1,35 +1,22 @@
-# client
+# Headline Hub Front-End
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the front-end codebase for Headline Hub, a website that aggregates and summarizes the latest news. The front-end is built using Vue.js and Bootstrap.
 
-## Recommended IDE Setup
+## Getting Started
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+To get started with the front-end, you will need to have Node.js and npm installed on your system. Once you have those installed, follow these steps:
 
-## Customize configuration
+1. Clone the repository to your local machine.
+2. Navigate to the root folder of the front-end codebase in your terminal.
+3. Run `npm install` to install the necessary dependencies.
+4. Run `npm run dev` to start the development server.
+5. Open your browser and navigate to `http://localhost:8081` to view the website.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Get the backend [here](https://github.com/Dz25/HeadlineHub-BE) 
+## Contributing
 
-## Project Setup
+This project was created by a team of students as a CSIS 3275 course project. The team members who contributed to the front-end codebase are:
+- [Duy](https://github.com/Dz25)
+- [Mayumi](https://github.com/chiyome)
+- [Jaydipkumar](https://github.com/jaydipkmulani)
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
